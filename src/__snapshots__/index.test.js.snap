@@ -1,0 +1,53 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`createStore after click of inc button 1`] = `
+<Component>
+  <Connected>
+    <Counter
+      count={27}
+    >
+      <div
+        id="Counter"
+      >
+        27
+        <button
+          id="inc"
+          onClick={[Function]}
+        >
+          +
+        </button>
+      </div>
+    </Counter>
+  </Connected>
+</Component>
+`;
+
+exports[`createStore after intent thunk inc 1`] = `7`;
+
+exports[`createStore after intent thunk inc10 1`] = `17`;
+
+exports[`createStore after raw dispatch of inc_by 1`] = `6`;
+
+exports[`createStore initial component 1`] = `
+<Component>
+  <Connected>
+    <Counter
+      count={27}
+    >
+      <div
+        id="Counter"
+      >
+        27
+        <button
+          id="inc"
+          onClick={[Function]}
+        >
+          +
+        </button>
+      </div>
+    </Counter>
+  </Connected>
+</Component>
+`;
+
+exports[`createStore initial state 1`] = `5`;
