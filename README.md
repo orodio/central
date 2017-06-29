@@ -10,21 +10,18 @@ yarn add @orodio/central
 
 ### General terms
 
-*intent* _future tense_
-
+**intent** _future tense_
 > A request from the user to do something or know about something.
 * Only ever called from the view or from another intent.
 * The primary way to interact with the api.
 * The only thing that ever creates/dispatches an event.
 
-*event* _past tense_
-
+**event** _past tense_
 > Something that did happen.
 * Will posibly trigger a change in the applications state.
 * Can only be created by the dispatch function.
 
-*handler* _current tense_
-
+**handler** _current tense_
 > Takes an event and the current state and gives us the new state.
 * Can only be triggered by an event.
 * Must return the new state.
@@ -48,13 +45,13 @@ const { dispatch, getState, connect, handler, intent, $ } = createStore(initialS
 ```
 * `initialState` must be an `immutable Map` from ImmutableJS.
 
-*dispatch* _dispatches events into the store_
+**dispatch** _dispatches events into the store_
 ```javascript
 dispatch('counter_set', counterId, counter)
 ```
 * Should only ever be called from inside of an `intent` (never directly from the view)
 
-*handler* _registers how an event transforms the current state_
+**handler** _registers how an event transforms the current state_
 ```javascript
 handler('counter_set', (state, counterId, counter) => {
   return state.setIn(['counters', counterId], counter)
@@ -63,7 +60,7 @@ handler('counter_set', (state, counterId, counter) => {
 * Must return the next state
 * creates a default `intent` with the same event name. ie: `counter_set`
 
-*intent* _registers how an event is created_
+**intent** _registers how an event is created_
 ```javascript
 intent('counter_set', (counter) => {
   return dispatch('counter_set', counter.id, counter)
@@ -78,7 +75,7 @@ intent('counter_get', ({ id }) => {
 * All async needs to happen in an intent
 * the only place you should ever call dispatch is in an intent
 
-*intent* and *$* _how you access the intents you registerd_
+**intent** and **$** _how you access the intents you registerd_
 ```javascript
 const counter2 = new $Counter({
   id: 'counter_2',
@@ -99,7 +96,7 @@ counterSet(counter3)
 ```
 * `$`/`intents` and `connect` should be the only parts of a store you call in your view.
 
-*getState* _gets the current state_
+**getState** _gets the current state_
 ```javascript
 getState() // Map({ counters:Map({ "counter_1":$Counter({ id:..., title:..., count:... }) }) })
 getState(['counters', 'counter_1', 'title']) // "foo"
@@ -108,7 +105,7 @@ getState(['counters', 'counter_1', 'doesnt_exist'], 'default value') // "default
 * Returns the current state (`Immutable Map`)
 * If if passed arguments acts like `.getIn([cursor], defaultValue)`
 
-*connect* _connects a react component to the store_
+**connect** _connects a react component to the store_
 ```javascript
 const inc = $('counter_inc')
 
@@ -137,10 +134,14 @@ export default connect(mapStateToProps)(Counter)
 
 * Given a `dispatch` call like: `dispatch("event_name", a, b, c, d, e, f)`
 * It will be handled by the `handler`: `handler("event_name", (currentState, a, b, c, d, e, f) => nextState)`
-* Which creates a default intent that is equivalent to: `intent("event_name", (a, b, c, d, e, f) => dispatch('event_name', a, b, c, d, e, f))`
+* Which creates a default intent that is equivalent to:
+  ```javascript
+  intent("event_name", (a, b, c, d, e, f) =>
+       dispatch('event_name', a, b, c, d, e, f))
+  ```
 * Which can then be called with: `$('event_name')(a, b, c, d, e, f)`
 
-*In the future the following will be equivalent (using the above as an example)*
+**In the future the following will be equivalent (using the above as an example)**
 > This is not the case right now.
 ```
   $('event_name')(a, b, c, d, e, f)
@@ -349,7 +350,7 @@ export const ConnectedCounters = connect(state => ({
   counters: state(['counters'], new Map())
               .map(counter => ({ id:counter.id }))
               .toArray(),
-}))(Counters)
+}))(XhrCounters)
 
 export default ConnectedCounters
 
