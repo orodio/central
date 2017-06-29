@@ -1,7 +1,7 @@
 {
   "name": "@orodio/central",
   "version": "0.0.1",
-  "description": "orodio does central",
+  "description": "central evented immutable store intended for use with react",
   "main": "lib/index.js",
   "repository": "https://github.com/orodio/central",
   "author": "James Hunter <james@bjorkman.com>",
